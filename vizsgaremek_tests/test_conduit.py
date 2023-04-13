@@ -263,6 +263,7 @@ class TestConduit(object):
 
         new_article(self.browser)
 
+
         edit_button = WebDriverWait(self.browser, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, 'a[class="btn btn-sm btn-outline-secondary"]')))
         edit_button.click()
