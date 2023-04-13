@@ -209,7 +209,7 @@ class TestConduit(object):
 
         # csv megnyitása
 
-        with open('articles.csv', 'r', encoding='UTF-8') as file:
+        with open('vizsgaremek_tests/articles.csv', 'r', encoding='UTF-8') as file:
             articles = csv.reader(file, delimiter=';')
             next(articles)
 
