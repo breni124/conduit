@@ -88,264 +88,264 @@ class TestConduit(object):
                                                                '//button[@class="swal-button swal-button--confirm"]')
         registration_failed_button.click()
 
-  #   # 2 Bejelentkezés ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  #
-  #   def test_login(self):
-  #
-  #       signin_button = self.browser.find_element(By.CSS_SELECTOR, 'a[href = "#/login"]')
-  #       signin_button.click()
-  #
-  #       email_input = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Email"]')))
-  #       password_input = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Password"]')))
-  #       confirm_signin = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'button[class="btn btn-lg btn-primary pull-xs-right"]')))
-  #
-  #       email_input.send_keys(user_data['email'])
-  #       password_input.send_keys(user_data['password'])
-  #       confirm_signin.click()
-  #       time.sleep(5)
-  #
-  #   # Ellenőrzés
-  #
-  #       profile = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/nav/div/ul/li[4]/a')))
-  #       assert profile.is_displayed
-  #       assert profile.text == user_data['username']
-  #
-  #   # 3 Adatkezelési nyilatkozat----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  #
-  #   def test_data_cookies(self):
-  #       # Ellenőrzés
-  #
-  #       cookie_policy_panel = self.browser.find_element(By.ID, 'cookie-policy-panel')
-  #       assert cookie_policy_panel.is_displayed()
-  #
-  #       # Elfogadás gomb kikeresése, megnyomása
-  #
-  #       accept_cookies_btn = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located(
-  #           (By.CSS_SELECTOR, 'button[class ="cookie__bar__buttons__button cookie__bar__buttons__button--accept"]')))
-  #       time.sleep(1)
-  #       accept_cookies_btn.click()
-  #       time.sleep(1)
-  #
-  #       # Ellenőrzés
-  #
-  #       assert len(self.browser.find_elements(By.ID, 'cookie-policy-panel')) == 0
-  #
-  #   # 4 Adatok listázása ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  #
-  #   def test_list_data(self):
-  #       login(self.browser)
-  #
-  #       popular_tags = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_all_elements_located((By.XPATH, '//div/div/a[@class="tag-pill tag-default"]')))
-  #
-  #       tags = []
-  #       for tag in popular_tags:
-  #           tags.append(tag.text)
-  #       # print(tags)
-  #
-  #       assert len(tags) != 0
-  #
-  #   # 5 Több oldalas lista bejárása----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  #
-  #   def test_all_pages(self):
-  #
-  #       login(self.browser)
-  #
-  #       page_links = self.browser.find_elements(By.CSS_SELECTOR, 'a[class ="page-link"]')
-  #
-  #       pages = []
-  #       for link in page_links:
-  #           link.click()
-  #           pages.append(link)
-  #
-  #       # Ellenőrzés
-  #
-  #       assert len(page_links) == len(pages)
-  #
-  #   # 6 Új adat bevitel ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  #
-  #   def test_new_data(self):
-  #
-  #       login(self.browser)
-  #
-  #       # Új bejegyzés létrehozása
-  #
-  #       new_article_btn = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.XPATH, '//a[@href="#/editor"]')))
-  #       time.sleep(1)
-  #       new_article_btn.click()
-  #
-  #       title_input = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Article Title"]')))
-  #       about_input = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="What\'s this article about?"]')))
-  #       full_article_input = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located(
-  #           (By.CSS_SELECTOR, 'textarea[placeholder="Write your article (in markdown)"]')))
-  #       tags_input = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Enter tags"]')))
-  #       submit_button = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'button[type="submit"]')))
-  #
-  #       title_input.send_keys(article['title'])
-  #       about_input.send_keys(article['about'])
-  #       full_article_input.send_keys(article['article'])
-  #       tags_input.send_keys(article['tags'])
-  #       submit_button.click()
-  #
-  #       # Helyes létrehozás, ellenőrzés
-  #
-  #       h1_title = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'h1')))
-  #       assert h1_title.text == article['title']
-  #
-  # #  7 Ismételt és sorozatos adatbevitel adatforrásból----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  #
-  #   def test_read_data(self):
-  #
-  #       login(self.browser)
-  #
-  #       # csv megnyitása
-  #
-  #       with open('articles.csv', 'r', encoding='UTF-8') as file:
-  #           articles = csv.reader(file, delimiter=';')
-  #           next(articles)
-  #
-  #           # Lista létrehozása
-  #           title_list = []
-  #
-  #           # csv fájl soraihoz mezők kikeresése
-  #           for row in articles:
-  #               new_article_btn = WebDriverWait(self.browser, 5).until(
-  #                   EC.presence_of_element_located((By.XPATH, '//a[@href="#/editor"]')))
-  #               time.sleep(1)
-  #               new_article_btn.click()
-  #
-  #               title_input = WebDriverWait(self.browser, 5).until(
-  #                   EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Article Title"]')))
-  #               about_input = WebDriverWait(self.browser, 5).until(
-  #                   EC.presence_of_element_located(
-  #                       (By.CSS_SELECTOR, 'input[placeholder="What\'s this article about?"]')))
-  #               article_input = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located(
-  #                   (By.CSS_SELECTOR, 'textarea[placeholder="Write your article (in markdown)"]')))
-  #               tags_input = WebDriverWait(self.browser, 5).until(
-  #                   EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Enter tags"]')))
-  #               submit_button = WebDriverWait(self.browser, 5).until(
-  #                   EC.presence_of_element_located((By.CSS_SELECTOR, 'button[type="submit"]')))
-  #
-  #               title_list.append(row[0])
-  #
-  #               title_input.send_keys(row[0])
-  #               about_input.send_keys(row[1])
-  #               article_input.send_keys(row[2])
-  #               tags_input.send_keys(row[3])
-  #               submit_button.click()
-  #
-  #           # Ellenőrzés, kezdőoldalon
-  #
-  #           home_btn = WebDriverWait(self.browser, 5).until(
-  #               EC.presence_of_element_located((By.XPATH, '//a[@href="#/"]')))
-  #           home_btn.click()
-  #
-  #           time.sleep(2)
-  #
-  #           for title in title_list:
-  #               assert (self.browser.find_element(By.PARTIAL_LINK_TEXT, f'{title}')).is_displayed()
-  #
-  #   # 8 Meglévő adat módosítás ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  #
-  #   def test_modify_data(self):
-  #
-  #       login(self.browser)
-  #
-  #       new_article(self.browser)
-  #
-  #       # article_url = article["title"].replace(' ', '-')
-  #       # self.browser.get(f'http://localhost:1667/#/articles/{article_url.lower()}')
-  #       # time.sleep(10)
-  #       #
-  #       # print(self.browser.current_url)
-  #
-  #       edit_button = WebDriverWait(self.browser, 10).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'a[class="btn btn-sm btn-outline-secondary"]')))
-  #       edit_button.click()
-  #
-  #       title_input = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Article Title"]')))
-  #       about_input = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="What\'s this article about?"]')))
-  #       article_input = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located(
-  #           (By.CSS_SELECTOR, 'textarea[placeholder="Write your article (in markdown)"]')))
-  #       tags_input = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Enter tags"]')))
-  #       submit_button = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.CSS_SELECTOR, 'button[type="submit"]')))
-  #
-  #       title_input.clear()
-  #       about_input.clear()
-  #       article_input.clear()
-  #       title_input.send_keys(modified_article['title'])
-  #       about_input.send_keys(modified_article['about'])
-  #       article_input.send_keys(modified_article['article'])
-  #       tags_input.send_keys(modified_article['tags'])
-  #       submit_button.click()
-  #       time.sleep(1)
-  #
-  #       home_btn = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.XPATH, '//a[@href="#/"]')))
-  #       home_btn.click()
-  #       time.sleep(2)
-  #
-  #       assert self.browser.find_element(By.PARTIAL_LINK_TEXT, f'{modified_article["title"]}').is_displayed()
-  #
-  #   #  9 Adat vagy adatok törlése ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  #
-  #   def test_delete_data(self):
-  #
-  #       login(self.browser)
-  #
-  #       new_article(self.browser)
-  #
-  #       article_url = self.browser.current_url
-  #       delete_article_button = WebDriverWait(self.browser, 10).until(
-  #           EC.presence_of_element_located((By.XPATH, '//i[@class="ion-trash-a"]')))
-  #       delete_article_button.click()
-  #
-  #       time.sleep(5)
-  #
-  #       assert self.browser.current_url != article_url
-  #
-  #       # 10 Adatok lementése felületről ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  #
-  #   def test_write_data(self):
-  #
-  #       login(self.browser)
-  #
-  #       popular_tags = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_all_elements_located((By.XPATH, '//div/div/a[@class="tag-pill tag-default"]')))
-  #
-  #       tags = []
-  #       for tag in popular_tags:
-  #           tags.append(tag.text)
-  #       print(tags)
-  #
-  #       with open('tags', 'w', encoding="UTF-8") as tag_file:
-  #           tag_file.write(str(tags))
-  #
-  #       # 11 Kijelentkezés----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  #
-  #   def test_logout(self):
-  #
-  #       login(self.browser)
-  #
-  #       # Kijelentkezés
-  #
-  #       logout_button = WebDriverWait(self.browser, 5).until(
-  #           EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, 'Log out')))
-  #       logout_button.click()
-  #       time.sleep(1)
-  #
-  #       signin_button = self.browser.find_element(By.CSS_SELECTOR, 'a[href = "#/login"]')
-  #       assert signin_button.is_displayed()
+    # 2 Bejelentkezés ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    def test_login(self):
+
+        signin_button = self.browser.find_element(By.CSS_SELECTOR, 'a[href = "#/login"]')
+        signin_button.click()
+
+        email_input = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Email"]')))
+        password_input = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Password"]')))
+        confirm_signin = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'button[class="btn btn-lg btn-primary pull-xs-right"]')))
+
+        email_input.send_keys(user_data['email'])
+        password_input.send_keys(user_data['password'])
+        confirm_signin.click()
+        time.sleep(5)
+
+    # Ellenőrzés
+
+        profile = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/nav/div/ul/li[4]/a')))
+        assert profile.is_displayed
+        assert profile.text == user_data['username']
+
+    # 3 Adatkezelési nyilatkozat----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    def test_data_cookies(self):
+        # Ellenőrzés
+
+        cookie_policy_panel = self.browser.find_element(By.ID, 'cookie-policy-panel')
+        assert cookie_policy_panel.is_displayed()
+
+        # Elfogadás gomb kikeresése, megnyomása
+
+        accept_cookies_btn = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, 'button[class ="cookie__bar__buttons__button cookie__bar__buttons__button--accept"]')))
+        time.sleep(1)
+        accept_cookies_btn.click()
+        time.sleep(1)
+
+        # Ellenőrzés
+
+        assert len(self.browser.find_elements(By.ID, 'cookie-policy-panel')) == 0
+
+    # 4 Adatok listázása ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    def test_list_data(self):
+        login(self.browser)
+
+        popular_tags = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_all_elements_located((By.XPATH, '//div/div/a[@class="tag-pill tag-default"]')))
+
+        tags = []
+        for tag in popular_tags:
+            tags.append(tag.text)
+        # print(tags)
+
+        assert len(tags) != 0
+
+    # 5 Több oldalas lista bejárása----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    def test_all_pages(self):
+
+        login(self.browser)
+
+        page_links = self.browser.find_elements(By.CSS_SELECTOR, 'a[class ="page-link"]')
+
+        pages = []
+        for link in page_links:
+            link.click()
+            pages.append(link)
+
+        # Ellenőrzés
+
+        assert len(page_links) == len(pages)
+
+    # 6 Új adat bevitel ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    def test_new_data(self):
+
+        login(self.browser)
+
+        # Új bejegyzés létrehozása
+
+        new_article_btn = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.XPATH, '//a[@href="#/editor"]')))
+        time.sleep(1)
+        new_article_btn.click()
+
+        title_input = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Article Title"]')))
+        about_input = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="What\'s this article about?"]')))
+        full_article_input = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, 'textarea[placeholder="Write your article (in markdown)"]')))
+        tags_input = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Enter tags"]')))
+        submit_button = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'button[type="submit"]')))
+
+        title_input.send_keys(article['title'])
+        about_input.send_keys(article['about'])
+        full_article_input.send_keys(article['article'])
+        tags_input.send_keys(article['tags'])
+        submit_button.click()
+
+        # Helyes létrehozás, ellenőrzés
+
+        h1_title = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'h1')))
+        assert h1_title.text == article['title']
+
+  #  7 Ismételt és sorozatos adatbevitel adatforrásból----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    def test_read_data(self):
+
+        login(self.browser)
+
+        # csv megnyitása
+
+        with open('articles.csv', 'r', encoding='UTF-8') as file:
+            articles = csv.reader(file, delimiter=';')
+            next(articles)
+
+            # Lista létrehozása
+            title_list = []
+
+            # csv fájl soraihoz mezők kikeresése
+            for row in articles:
+                new_article_btn = WebDriverWait(self.browser, 5).until(
+                    EC.presence_of_element_located((By.XPATH, '//a[@href="#/editor"]')))
+                time.sleep(1)
+                new_article_btn.click()
+
+                title_input = WebDriverWait(self.browser, 5).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Article Title"]')))
+                about_input = WebDriverWait(self.browser, 5).until(
+                    EC.presence_of_element_located(
+                        (By.CSS_SELECTOR, 'input[placeholder="What\'s this article about?"]')))
+                article_input = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, 'textarea[placeholder="Write your article (in markdown)"]')))
+                tags_input = WebDriverWait(self.browser, 5).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Enter tags"]')))
+                submit_button = WebDriverWait(self.browser, 5).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, 'button[type="submit"]')))
+
+                title_list.append(row[0])
+
+                title_input.send_keys(row[0])
+                about_input.send_keys(row[1])
+                article_input.send_keys(row[2])
+                tags_input.send_keys(row[3])
+                submit_button.click()
+
+            # Ellenőrzés, kezdőoldalon
+
+            home_btn = WebDriverWait(self.browser, 5).until(
+                EC.presence_of_element_located((By.XPATH, '//a[@href="#/"]')))
+            home_btn.click()
+
+            time.sleep(2)
+
+            for title in title_list:
+                assert (self.browser.find_element(By.PARTIAL_LINK_TEXT, f'{title}')).is_displayed()
+
+    # 8 Meglévő adat módosítás ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    def test_modify_data(self):
+
+        login(self.browser)
+
+        new_article(self.browser)
+
+        # article_url = article["title"].replace(' ', '-')
+        # self.browser.get(f'http://localhost:1667/#/articles/{article_url.lower()}')
+        # time.sleep(10)
+        #
+        # print(self.browser.current_url)
+
+        edit_button = WebDriverWait(self.browser, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'a[class="btn btn-sm btn-outline-secondary"]')))
+        edit_button.click()
+
+        title_input = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Article Title"]')))
+        about_input = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="What\'s this article about?"]')))
+        article_input = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located(
+            (By.CSS_SELECTOR, 'textarea[placeholder="Write your article (in markdown)"]')))
+        tags_input = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'input[placeholder="Enter tags"]')))
+        submit_button = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'button[type="submit"]')))
+
+        title_input.clear()
+        about_input.clear()
+        article_input.clear()
+        title_input.send_keys(modified_article['title'])
+        about_input.send_keys(modified_article['about'])
+        article_input.send_keys(modified_article['article'])
+        tags_input.send_keys(modified_article['tags'])
+        submit_button.click()
+        time.sleep(1)
+
+        home_btn = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.XPATH, '//a[@href="#/"]')))
+        home_btn.click()
+        time.sleep(2)
+
+        assert self.browser.find_element(By.PARTIAL_LINK_TEXT, f'{modified_article["title"]}').is_displayed()
+
+    #  9 Adat vagy adatok törlése ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    def test_delete_data(self):
+
+        login(self.browser)
+
+        new_article(self.browser)
+
+        article_url = self.browser.current_url
+        delete_article_button = WebDriverWait(self.browser, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//i[@class="ion-trash-a"]')))
+        delete_article_button.click()
+
+        time.sleep(5)
+
+        assert self.browser.current_url != article_url
+
+        # 10 Adatok lementése felületről ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    def test_write_data(self):
+
+        login(self.browser)
+
+        popular_tags = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_all_elements_located((By.XPATH, '//div/div/a[@class="tag-pill tag-default"]')))
+
+        tags = []
+        for tag in popular_tags:
+            tags.append(tag.text)
+        print(tags)
+
+        with open('tags', 'w', encoding="UTF-8") as tag_file:
+            tag_file.write(str(tags))
+
+        # 11 Kijelentkezés----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    def test_logout(self):
+
+        login(self.browser)
+
+        # Kijelentkezés
+
+        logout_button = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, 'Log out')))
+        logout_button.click()
+        time.sleep(1)
+
+        signin_button = self.browser.find_element(By.CSS_SELECTOR, 'a[href = "#/login"]')
+        assert signin_button.is_displayed()
