@@ -19,7 +19,7 @@ class TestConduit(object):
         s = Service(executable_path=ChromeDriverManager().install())
         o = Options()
         o.add_experimental_option("detach", True)
-        o.add_argument('--headless')
+        #o.add_argument('--headless')
         o.add_argument('--no-sandbox')
         o.add_argument('--disable-dev-shm-usage')
 
@@ -155,16 +155,17 @@ class TestConduit(object):
 
         login(self.browser)
 
-        page_links = self.browser.find_elements(By.CSS_SELECTOR, 'a[class ="page-link"]')
-
-        pages = []
-        for link in page_links:
-            link.click()
-            pages.append(link)
+        page_links_list = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_all_elements_located((By.XPATH, '//ul[@class="pagination"]/li/a')))
+        for page_link in page_links_list:
+            page_link.click()
+            time.sleep(2)
+            actual_page = self.browser.find_element(By.CSS_SELECTOR, 'li[class="page-item active"]')
 
         # Ellenőrzés
 
-        assert len(page_links) == len(pages)
+            assert page_link.text == actual_page.text
+
 
     # 6 Új adat bevitel ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -261,12 +262,6 @@ class TestConduit(object):
         login(self.browser)
 
         new_article(self.browser)
-
-        # article_url = article["title"].replace(' ', '-')
-        # self.browser.get(f'http://localhost:1667/#/articles/{article_url.lower()}')
-        # time.sleep(10)
-        #
-        # print(self.browser.current_url)
 
         edit_button = WebDriverWait(self.browser, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, 'a[class="btn btn-sm btn-outline-secondary"]')))
